@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ice: #F7FAFC;
+  --color-white: #FFFFFF;
+  --color-navy: #1B365D;
+  --color-navy-dark: #10223B;
+  --color-navy-light: #24487C;
+  --color-slate-steel: #4A5568;
+  --color-slate-dark: #2D3748;
+  --color-slate-light: #718096;
+  --color-slate-border: #E2E8F0;
+  --color-slate-subtle: #EDF2F7;
+  --color-gold: #C59B27;
+  --color-gold-hover: #AF8820;
+  --color-gold-light: #FBF7EC;
+  --color-gold-border: #E6CE78;
+  --color-teal: #2C7A7B;
+  --color-teal-hover: #236364;
+  --color-teal-light: #E6FFFA;
+  --color-teal-border: #81E6D9;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--color-slate-steel);
+    background-color: var(--color-ice);
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+/* Spatial & Visual Layering Utilities */
+.bg-architectural-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.bg-subtle-dots {
+  background-image: radial-gradient(rgba(27, 54, 93, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.shadow-spatial {
+  box-shadow:
+    0 4px 6px -1px rgba(27, 54, 93, 0.04),
+    0 20px 40px -12px rgba(27, 54, 93, 0.12),
+    0 0 0 1px rgba(27, 54, 93, 0.05);
+}
+
+.shadow-spatial-hover {
+  box-shadow:
+    0 12px 24px -4px rgba(27, 54, 93, 0.08),
+    0 32px 64px -12px rgba(27, 54, 93, 0.18),
+    0 0 0 1px rgba(44, 122, 123, 0.25);
+}
+
+.shadow-gold-glow {
+  box-shadow:
+    0 10px 25px -5px rgba(197, 155, 39, 0.4),
+    0 4px 10px -2px rgba(197, 155, 39, 0.2);
+}

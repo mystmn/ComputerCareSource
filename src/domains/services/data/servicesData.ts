@@ -1,0 +1,66 @@
+import type { ServiceItem } from '../types';
+
+export const CONCIERGE_SERVICES: ServiceItem[] = [
+  {
+    id: 'computer-repair',
+    title: 'In-Home Computer Repair',
+    shortDesc: 'Hardware diagnostics, slow PC tune-ups, component replacements, and OS troubleshooting for desktops and laptops without ever leaving your desk.',
+    fullDesc: 'We diagnose and resolve mechanical failures, boot errors, sluggish performance, and screen or battery malfunctions on Windows PC and Apple Mac systems. Everything is handled right at your desk or dining table—no carrying equipment to a store.',
+    iconName: 'wrench',
+    keyPoints: [
+      'Comprehensive system & component diagnostics',
+      'SSD storage upgrades & RAM expansion',
+      'Windows & macOS troubleshooting & tune-up',
+      'Overheating & fan cleaning at your workspace',
+    ],
+    idealFor: 'Laptops, All-in-Ones, and Desktops that won\'t boot or run sluggishly',
+    typicalTime: '1 to 2 hours',
+    popular: true,
+  },
+  {
+    id: 'virus-malware',
+    title: 'Virus & Malware Removal',
+    shortDesc: 'Deep system sanitization, spyware eradication, pop-up blocking, and proactive security hardening to keep your personal data and banking safe.',
+    fullDesc: 'Malicious software compromises your privacy, passwords, and banking accounts. We run deep forensic sweeps to eradicate rootkits, keyloggers, and intrusive browser adware, followed by military-grade security hardening and browser protection.',
+    iconName: 'shield',
+    keyPoints: [
+      'Deep rootkit & spyware sanitization',
+      'Aggressive pop-up & hijacking browser removal',
+      'Banking security & credential hardening',
+      'Reputable antivirus & ad-blocker installation',
+    ],
+    idealFor: 'Constant browser pop-ups, suspicious lockups, or identity theft concerns',
+    typicalTime: '1 to 1.5 hours',
+    popular: true,
+  },
+  {
+    id: 'wifi-networking',
+    title: 'Wi-Fi & Router Setup',
+    shortDesc: 'Whole-home mesh Wi-Fi installation, dead-zone elimination, router security configuration, and seamless smart-device/printer connectivity.',
+    fullDesc: 'Eliminate buffering and dropped Zoom calls. We analyze your home layout, configure high-speed Mesh systems (e.g., eero, Google Nest, Orbi), secure your network encryption, and connect all smart TVs, tablets, and wireless printers.',
+    iconName: 'wifi',
+    keyPoints: [
+      'Whole-home mesh network deployment',
+      'Elimination of Wi-Fi dead spots & lag',
+      'Router encryption, guest network & firewall setup',
+      'Wireless printer & smart home device synchronization',
+    ],
+    idealFor: 'Weak bedroom Wi-Fi, buffering video streams, or troublesome wireless printers',
+    typicalTime: '1 to 2 hours',
+  },
+  {
+    id: 'data-recovery',
+    title: 'Data Recovery & Backup',
+    shortDesc: 'Emergency retrieval of lost family photos and critical documents from failing drives, paired with automated cloud or local backup setups.',
+    fullDesc: 'Irreplaceable memories and critical tax documents deserve white-glove protection. If your hard drive crashed or files were accidentally deleted, we conduct on-site data recovery and implement a bulletproof "set-it-and-forget-it" automated backup strategy.',
+    iconName: 'database',
+    keyPoints: [
+      'Emergency file recovery from damaged or failing drives',
+      'Safe transfer between old computers and new devices',
+      'Automated local external drive backup (Time Machine / Windows Backup)',
+      'Encrypted cloud backup configuration (OneDrive, Google Drive, iCloud)',
+    ],
+    idealFor: 'Unreadable external drives, accidentally deleted folders, or setting up disaster recovery',
+    typicalTime: '1 to 2.5 hours',
+  },
+];
