@@ -39,7 +39,13 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === 'name' || name === 'fullName') {
+      setFormData((prev) => ({ ...prev, fullName: value }));
+    } else if (name === 'message' || name === 'issueDescription') {
+      setFormData((prev) => ({ ...prev, issueDescription: value }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -58,6 +64,10 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
       setIsSubmitting(false);
     }
   };
+
+  const formSubmitTarget =
+    import.meta.env.VITE_FORMSUBMIT_EMAIL || 'info@theevergreenstrategy.com';
+  const formAction = `https://formsubmit.co/${formSubmitTarget}`;
 
   return (
     <section
@@ -109,16 +119,36 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form
+                action={formAction}
+                method="POST"
+                onSubmit={handleSubmit}
+                className="space-y-5"
+              >
+                {/* FormSubmit Configuration Fields */}
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="New In-Home Tech Visit - Computer Care Source"
+                />
+                <input type="hidden" name="service" value={formData.serviceType} />
+                <input type="hidden" name="altcha" value={altchaPayload} />
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5">
+                    <label
+                      htmlFor="client-name"
+                      className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5"
+                    >
                       Name *
                     </label>
                     <input
+                      id="client-name"
                       type="text"
                       required
-                      name="fullName"
+                      name="name"
                       value={formData.fullName}
                       onChange={handleChange}
                       placeholder="Full Name"
@@ -127,10 +157,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5">
+                    <label
+                      htmlFor="client-phone"
+                      className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5"
+                    >
                       Phone Number *
                     </label>
                     <input
+                      id="client-phone"
                       type="tel"
                       required
                       name="phone"
@@ -143,10 +177,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5">
+                  <label
+                    htmlFor="client-address"
+                    className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5"
+                  >
                     Address or Zip Code *
                   </label>
                   <input
+                    id="client-address"
                     type="text"
                     required
                     name="address"
@@ -158,12 +196,16 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5">
+                  <label
+                    htmlFor="client-message"
+                    className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5"
+                  >
                     Brief Description of Issue
                   </label>
                   <textarea
+                    id="client-message"
                     rows={3}
-                    name="issueDescription"
+                    name="message"
                     value={formData.issueDescription}
                     onChange={handleChange}
                     placeholder="How can we help? (e.g. slow PC, virus pop-ups, Wi-Fi dead zones, data recovery...)"
