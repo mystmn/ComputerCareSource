@@ -3,7 +3,7 @@ import type { BookingFormData, BookingSubmissionResult } from '../types';
 const STORAGE_KEY = 'ccs_local_leads';
 
 /**
- * Dispatches a booking request to a remote webhook (if configured via VITE_BOOKING_WEBHOOK_URL)
+ * Dispatches a booking request to FormSubmit.co (https://formsubmit.co)
  * and guarantees lead safety by persisting to local storage backup.
  */
 export async function submitBookingRequest(data: BookingFormData): Promise<BookingSubmissionResult> {
@@ -25,7 +25,45 @@ export async function submitBookingRequest(data: BookingFormData): Promise<Booki
     console.warn('Could not store lead to localStorage:', err);
   }
 
-  // 2. Remote webhook notification (if configured in .env or environment)
+  // 2. FormSubmit.co Integration
+  // Uses VITE_FORMSUBMIT_EMAIL if provided, or fallback
+  const formSubmitTarget =
+    import.meta.env.VITE_FORMSUBMIT_EMAIL ||
+    import.meta.env.VITE_FORMSUBMIT_TOKEN ||
+    'contact@computercaresource.com';
+
+  const formSubmitEndpoint = `https://formsubmit.co/ajax/${formSubmitTarget}`;
+
+  try {
+    const response = await fetch(formSubmitEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        _subject: `[New In-Home Tech Visit] ${data.fullName} (Ref: ${referenceId})`,
+        _template: 'table',
+        _captcha: 'false',
+        'Customer Name': data.fullName,
+        'Phone Number': data.phone,
+        'Service Street / Zip': data.address,
+        'Service Requested': data.serviceType,
+        'Issue Description': data.issueDescription || 'Not specified',
+        'Reference ID': referenceId,
+        'Submission Time': `${new Date().toLocaleDateString()} at ${submittedAt}`,
+      }),
+    });
+
+    if (!response.ok) {
+      console.warn('FormSubmit returned status:', response.status);
+    }
+  } catch (error) {
+    console.warn('FormSubmit dispatch network notice:', error);
+    // Non-blocking: result is returned so user sees confirmation & reference code
+  }
+
+  // 3. Optional secondary webhook (if configured)
   const webhookUrl = import.meta.env.VITE_BOOKING_WEBHOOK_URL;
   if (webhookUrl) {
     try {
@@ -38,13 +76,9 @@ export async function submitBookingRequest(data: BookingFormData): Promise<Booki
           source: 'computercaresource.com',
         }),
       });
-    } catch (error) {
-      console.error('Remote booking dispatch error:', error);
-      // We still return the valid result so the customer receives their confirmation code
+    } catch (err) {
+      console.error('Secondary webhook error:', err);
     }
-  } else {
-    // Artificial latency for authentic booking experience
-    await new Promise((resolve) => setTimeout(resolve, 600));
   }
 
   return result;

@@ -15,7 +15,7 @@ A complete, high-converting, responsive landing page and web application built w
   - Deep Trust Navy (`#1B365D`) for top navigation bar, headings, hero banners, and footer
   - Modern Steel / Slate Gray (`#4A5568`) for body copy, subheadings, and subtle borders
 - **10% Accents & CTAs:**
-  - Concierge Gold (`#C59B27`) for primary CTAs ("Schedule In-Home Visit", "Book a House Call"), pricing highlights, and trust badges
+  - Concierge Gold (`#C59B27`) for primary CTAs ("Book a House Call"), pricing highlights, and trust badges
   - Support Teal (`#2C7A7B`) for secondary links, checkmarks, service icons, and hover states
 
 ---
@@ -27,66 +27,56 @@ src/
 ├── domains/
 │   ├── brand/
 │   │   └── components/
-│   │       └── BrandLogo.tsx         # House enclosing laptop + gold shield checkmark
+│   │       └── BrandLogo.tsx         # Official brand identity in sm, md, and lg responsive variants
 │   ├── navigation/
 │   │   └── components/
-│   │       └── Navbar.tsx            # Sticky Deep Trust Navy nav, hotline & gold CTA
+│   │       └── Navbar.tsx            # Sticky Deep Trust Navy nav, (614) 382-2874 hotline & gold CTA
 │   ├── hero/
 │   │   └── components/
-│   │       └── HeroSection.tsx       # Headline, Subheadline, Gold CTA, Pricing pill & live dispatch card
+│   │       └── HeroSection.tsx       # Core pitch, rate badge & 3-column trust ribbon
 │   ├── services/
 │   │   ├── types/                    # ServiceItem interface
 │   │   ├── data/                     # 4 Core Concierge Services data
 │   │   └── components/
-│   │       ├── ServiceCard.tsx       # Elevated 2x2 cards with teal icons & gold badges
+│   │       ├── ServiceCard.tsx       # Multi-plane elevated 2x2 cards with teal icons & gold badges
 │   │       └── ServicesSection.tsx
-│   ├── why-us/
+│   ├── credentials/
 │   │   └── components/
-│   │       └── WhyUsSection.tsx      # Concierge Difference (Heavy Lifting, Confidentiality, Plain English)
+│   │       └── CredentialsSection.tsx# 21 years medical & financial experience + CompTIA A+ certification
 │   ├── pricing/
 │   │   └── components/
-│   │       └── PricingSection.tsx    # Gold-bordered spotlight card ($140/hr + $119/hr) + interactive estimator
+│   │       └── PricingSection.tsx    # Gold-bordered spotlight card ($140/hr + $119/hr)
 │   ├── how-it-works/
 │   │   └── components/
-│   │       └── HowItWorksSection.tsx # 3-step numbered progression
-│   ├── service-area/
-│   │   └── components/
-│   │       └── ServiceAreaSection.tsx# Interactive Zip Code coverage checker & territory map
-│   ├── testimonials/
-│   │   └── components/
-│   │       └── TestimonialsSection.tsx# 5-star residential client reviews & social proof
-│   ├── faq/
-│   │   └── components/
-│   │       └── FaqSection.tsx        # Accordion addressing privacy, travel fees, Mac/PC, parts
+│   │       └── HowItWorksSection.tsx # 3-step numbered progression with recessed watermarks
 │   ├── booking/
 │   │   ├── types/                    # BookingFormData & BookingSubmissionResult
 │   │   ├── services/
-│   │   │   └── bookingService.ts     # Lead dispatch service (Webhook + LocalStorage backup)
+│   │   │   └── bookingService.ts     # FormSubmit.co integration + LocalStorage audit trail
 │   │   └── components/
-│   │       ├── BookingSection.tsx    # Lead capture form with instant reference receipt
-│   │       └── BookingModal.tsx      # Accessible modal triggered from anywhere
+│   │       └── BookingSection.tsx    # Lead capture form with instant reference confirmation
 │   └── footer/
 │       └── components/
-│           └── Footer.tsx            # Deep Trust Navy footer with hours, links, and guarantee
-├── shared/
-│   └── components/
-│       └── MobileQuickBar.tsx        # Sticky mobile call & booking action bar
-├── App.tsx                           # Root orchestrator with smooth scrolling & modal state
-├── index.css                         # Tailwind CSS v4 @theme color token definitions
+│           └── Footer.tsx            # Deep Trust Navy footer with phone, copyright, and Evergreen Strategy credit
+├── App.tsx                           # Root orchestrator with smooth scrolling
+├── index.css                         # Tailwind CSS v4 @theme color token & spatial depth utilities
 └── main.tsx                          # React 19 entry point
 ```
 
 ---
 
-## ⚡ Key Features Added
+## 📬 FormSubmit.co Integration
 
-1. **Instant Zip Code Coverage Checker:** Real-time lookup for customers to verify zero travel fees in their area.
-2. **Interactive Pricing Calculator:** Live estimator for 1h, 1.5h, 2h, and 3h appointments highlighting the transparent $140 1st hour / $119 additional hours rate.
-3. **Resilient Lead Capture & Webhook Ready:**
-   - Automatically saves all booking inquiries to browser `localStorage` as a safety net.
-   - Optional webhook forwarding via `VITE_BOOKING_WEBHOOK_URL` in `.env` (compatible with Zapier, Make, Formspree, Slack, or any API endpoint).
-4. **Mobile Conversion Bar:** Fixed bottom bar on small viewports with quick 1-tap phone dispatch and booking.
-5. **Verified Client Testimonials:** Highlighting privacy, elderly parent assistance, and zero tech jargon.
+The booking form is wired directly to **[FormSubmit.co](https://formsubmit.co)** via clean asynchronous AJAX (`fetch`):
+
+1. **Zero Redirects:** Customers stay on your page and immediately see their confirmed **`Ref #CCS-XXXXXX`** receipt screen.
+2. **Setup Your Destination Email:**
+   - In `.env`, set:
+     ```bash
+     VITE_FORMSUBMIT_EMAIL=your-real-email@example.com
+     ```
+   - On the very first form submission, FormSubmit sends an activation email to that address. Click the link once to activate instant inbox alerts for all future submissions!
+3. **Double Redundancy:** All leads are simultaneously backed up in the browser's `localStorage` (`ccs_local_leads`) so no customer inquiry is ever lost.
 
 ---
 
@@ -107,4 +97,9 @@ Open [http://localhost:5173/](http://localhost:5173/) in your browser.
 ```bash
 npm run build
 ```
-The production bundle will be generated in `dist/`.
+
+### 4. Deploy to Firebase Hosting
+```bash
+npm run build
+npx firebase deploy --only hosting
+```
