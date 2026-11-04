@@ -65,9 +65,8 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
     }
   };
 
-  const formSubmitTarget =
-    import.meta.env.VITE_FORMSUBMIT_EMAIL || 'info@theevergreenstrategy.com';
-  const formAction = `https://formsubmit.co/${formSubmitTarget}`;
+  const web3FormsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '';
+  const formAction = 'https://api.web3forms.com/submit';
 
   return (
     <section
@@ -125,13 +124,19 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 onSubmit={handleSubmit}
                 className="space-y-5"
               >
-                {/* FormSubmit Configuration Fields */}
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
+                {/* Web3Forms Configuration Fields */}
+                <input type="hidden" name="access_key" value={web3FormsKey} />
                 <input
                   type="hidden"
-                  name="_subject"
+                  name="subject"
                   value="New In-Home Tech Visit - Computer Care Source"
+                />
+                <input type="hidden" name="from_name" value="Computer Care Source" />
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: 'none' }}
                 />
                 <input type="hidden" name="service" value={formData.serviceType} />
                 <input type="hidden" name="altcha" value={altchaPayload} />
