@@ -83,17 +83,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onBookClick }) => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#10223B] border-t border-white/10 px-4 py-4 space-y-2">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-[#C59B27]"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="sm:hidden bg-[#10223B] border-t border-white/10 px-4 py-4 space-y-4">
+          <div className="flex justify-center pb-3 border-b border-white/10">
+            <BrandLogo variant="light" size="md" layout="stacked" />
+          </div>
+          <div className="space-y-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-md text-sm font-medium text-gray-200 hover:text-[#C59B27]"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
       )}
     </header>
