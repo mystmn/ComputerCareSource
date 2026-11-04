@@ -33,7 +33,7 @@ export async function submitBookingRequest(
   const formSubmitTarget =
     import.meta.env.VITE_FORMSUBMIT_EMAIL ||
     import.meta.env.VITE_FORMSUBMIT_TOKEN ||
-    'contact@computercaresource.com';
+    'info@theevergreenstrategy.com';
 
   const formSubmitEndpoint = `https://formsubmit.co/ajax/${formSubmitTarget}`;
 
