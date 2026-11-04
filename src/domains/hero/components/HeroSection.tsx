@@ -50,7 +50,7 @@ export const HeroSection: React.FC = () => {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-md border border-white/15 shadow-xl text-xs sm:text-sm text-gray-200 transition-colors"
           >
             <Phone className="w-4 h-4 text-[#E6CE78]" />
-            <span className="font-bold text-white">Call for an over the phone quote</span>
+            <span className="font-bold text-white">Call or text for a quote</span>
             <span className="text-white/40 mx-1">&bull;</span>
             <span className="text-[#E6CE78] font-semibold">(614) 382-2874</span>
           </a>

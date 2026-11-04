@@ -1,11 +1,11 @@
 import React from 'react';
-import { CheckCircle2, Phone } from 'lucide-react';
+import { CheckCircle2, Phone, MessageSquare } from 'lucide-react';
 
 export const PricingSection: React.FC = () => {
   const includedItems = [
     'Travel directly to your home',
     'Comprehensive system diagnostics',
-    'Hands-on repair & tuning',
+    'Hands-on repair',
     'Final PC performance & security check before we leave',
   ];
 
@@ -28,24 +28,25 @@ export const PricingSection: React.FC = () => {
 
           {/* Layer 3: Main Gold-Bordered Spotlight Card */}
           <div className="relative z-10 rounded-[2rem] bg-white border-2 border-[#C59B27] shadow-2xl p-7 sm:p-11">
-            {/* Call for Quote Highlight */}
+            {/* Call or Text for Quote Highlight */}
             <div className="rounded-2xl bg-[#F7FAFC] border border-slate-200/80 p-8 sm:p-10 text-center space-y-4 shadow-inner">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#2C7A7B]">
-                The Concierge House Call
-              </span>
               <div className="text-3xl sm:text-5xl font-black text-[#1B365D] tracking-tight">
-                Call for an over the phone quote
+                Call or text for a quote
               </div>
-              <p className="text-base text-[#4A5568] max-w-lg mx-auto">
-                Every repair and setup is unique. Speak directly with your technician to get an honest, upfront quote tailored to your exact system.
-              </p>
-              <div className="pt-2">
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                 <a
                   href="tel:6143822874"
                   className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-b from-[#1B365D] to-[#10223B] hover:from-[#10223B] hover:to-[#0D1C30] text-white font-bold text-base shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer"
                 >
                   <Phone className="w-5 h-5 text-[#C59B27]" />
                   <span>Call (614) 382-2874</span>
+                </a>
+                <a
+                  href="sms:6143822874"
+                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-[#1B365D] font-bold text-base shadow-sm transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <MessageSquare className="w-5 h-5 text-[#2C7A7B]" />
+                  <span>Text Us</span>
                 </a>
               </div>
             </div>
