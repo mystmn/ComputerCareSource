@@ -7,13 +7,12 @@ declare global {
       'altcha-widget': React.DetailedHTMLProps<
         React.HTMLAttributes<HTMLElement> & {
           challenge?: string;
-          test?: boolean | string;
+          configuration?: string;
           name?: string;
           theme?: string;
           auto?: string;
           hidelogo?: boolean | string;
           hidefooter?: boolean | string;
-          configuration?: string;
         },
         HTMLElement
       >;
@@ -24,13 +23,12 @@ declare global {
       'altcha-widget': React.DetailedHTMLProps<
         React.HTMLAttributes<HTMLElement> & {
           challenge?: string;
-          test?: boolean | string;
+          configuration?: string;
           name?: string;
           theme?: string;
           auto?: string;
           hidelogo?: boolean | string;
           hidefooter?: boolean | string;
-          configuration?: string;
         },
         HTMLElement
       >;
@@ -51,6 +49,7 @@ export const AltchaWidget: React.FC<AltchaWidgetProps> = ({
 }) => {
   const widgetRef = useRef<HTMLElement | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Challenge endpoint from prop, env, or fallback to client-side test mode
   const effectiveChallenge = challengeUrl || import.meta.env.VITE_ALTCHA_CHALLENGE_URL;
@@ -63,6 +62,7 @@ export const AltchaWidget: React.FC<AltchaWidgetProps> = ({
       })
       .catch((err) => {
         console.warn('Failed to load ALTCHA library:', err);
+        setErrorMessage('Failed to load validation widget.');
       });
   }, []);
 
@@ -70,22 +70,33 @@ export const AltchaWidget: React.FC<AltchaWidgetProps> = ({
     const el = widgetRef.current;
     if (!el || !isLoaded) return;
 
+    // In ALTCHA v3, test mode MUST be set via configure() or configuration attribute
+    const widgetConfig = effectiveChallenge
+      ? { challenge: effectiveChallenge }
+      : { test: true, minDuration: 400 };
+
+    // Programmatic configuration
+    if (typeof (el as unknown as { configure: (cfg: object) => void }).configure === 'function') {
+      (el as unknown as { configure: (cfg: object) => void }).configure(widgetConfig);
+    }
+
     const handleStateChange = (ev: Event) => {
       const customEvent = ev as CustomEvent<{ state: string; payload?: string }>;
       if (customEvent.detail) {
         if (customEvent.detail.state === 'verified' && customEvent.detail.payload) {
+          setErrorMessage(null);
           onVerify?.(customEvent.detail.payload);
+        } else if (customEvent.detail.state === 'error') {
+          console.warn('ALTCHA state error');
         }
       }
     };
 
     const handleVerified = (ev: Event) => {
       const customEvent = ev as CustomEvent<{ payload?: string }>;
-      if (customEvent.detail?.payload) {
-        onVerify?.(customEvent.detail.payload);
-      } else {
-        onVerify?.('verified_human');
-      }
+      const payload = customEvent.detail?.payload || 'verified_human_pow';
+      setErrorMessage(null);
+      onVerify?.(payload);
     };
 
     el.addEventListener('statechange', handleStateChange);
@@ -95,7 +106,13 @@ export const AltchaWidget: React.FC<AltchaWidgetProps> = ({
       el.removeEventListener('statechange', handleStateChange);
       el.removeEventListener('verified', handleVerified);
     };
-  }, [isLoaded, onVerify]);
+  }, [isLoaded, effectiveChallenge, onVerify]);
+
+  const configJson = JSON.stringify(
+    effectiveChallenge
+      ? { challenge: effectiveChallenge }
+      : { test: true, minDuration: 400 }
+  );
 
   return (
     <div className={`altcha-container ${className}`}>
@@ -103,6 +120,7 @@ export const AltchaWidget: React.FC<AltchaWidgetProps> = ({
         <altcha-widget
           ref={widgetRef}
           challenge={effectiveChallenge}
+          configuration={configJson}
           name="altcha"
           theme="light"
           hidelogo="true"
@@ -110,11 +128,15 @@ export const AltchaWidget: React.FC<AltchaWidgetProps> = ({
       ) : (
         <altcha-widget
           ref={widgetRef}
-          test="true"
+          configuration={configJson}
           name="altcha"
           theme="light"
           hidelogo="true"
         />
+      )}
+
+      {errorMessage && (
+        <p className="text-xs text-red-500 mt-1">{errorMessage}</p>
       )}
     </div>
   );

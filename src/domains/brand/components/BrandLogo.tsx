@@ -17,7 +17,7 @@ export interface BrandLogoProps {
   /**
    * Visual layout orientation:
    * - 'horizontal': Emblem on left, text on right (Desktop standard)
-   * - 'stacked': Emblem centered on top, text stacked on 3 lines below (Mobile / Header)
+   * - 'stacked': Hi-fi emblem centered on top, text below (Mobile / Header)
    * - 'icon': Rounded navy app tile with "CCS" (Small Favicon format)
    */
   layout?: 'horizontal' | 'stacked' | 'icon';
@@ -37,7 +37,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 }) => {
   const isLightText = variant === 'light';
 
-  // 1. Small / Icon layout (Rounded Navy tile with emblem + "CCS")
+  // 1. Small / Icon layout (Rounded Navy tile with hi-fi emblem + "CCS")
   if (layout === 'icon') {
     const tileSizes = {
       sm: 'w-9 h-9',
@@ -47,7 +47,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     return (
       <div className={`inline-flex items-center justify-center select-none ${className}`}>
         <img
-          src="/brand/logo-small.png"
+          src="/brand/hi-fi-icon.png"
           alt="Computer Care Source (CCS)"
           className={`${tileSizes[size]} object-contain drop-shadow-sm rounded-xl`}
           loading="eager"
@@ -56,14 +56,14 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     );
   }
 
-  // 2. Medium Stacked layout (Emblem centered on top, "Computer Care Source" on 3 lines below)
+  // 2. Medium Stacked layout using high-fidelity logo asset
   if (layout === 'stacked') {
     return (
       <div className={`inline-flex flex-col items-center text-center select-none ${className}`}>
         <img
-          src="/brand/logo-mark.png"
+          src="/brand/hi-fi-emblem.png"
           alt="Computer Care Source Emblem"
-          className="w-16 h-12 sm:w-20 sm:h-16 object-contain mb-2"
+          className="w-16 h-10 sm:w-20 sm:h-12 object-contain mb-2"
           loading="eager"
         />
         <div className="flex flex-col leading-tight font-black tracking-tight text-sm sm:text-base">
@@ -80,11 +80,11 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     );
   }
 
-  // 3. Horizontal layout (Desktop & standard header)
+  // 3. Horizontal layout (Desktop & Header Standard) using hi-fi emblem
   const emblemSizes = {
-    sm: 'w-9 h-7',
-    md: 'w-12 h-9',
-    lg: 'w-16 h-12',
+    sm: 'w-10 h-7',
+    md: 'w-14 h-9 sm:w-16 sm:h-10',
+    lg: 'w-20 h-12 sm:w-24 sm:h-14',
   };
 
   const titleSizes = {
@@ -95,9 +95,9 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 
   return (
     <div className={`inline-flex items-center gap-3 select-none ${className}`}>
-      {/* Official House + Laptop + Gold Checkmark Emblem */}
+      {/* High-Fidelity House + Laptop + Gold Checkmark Emblem */}
       <img
-        src="/brand/logo-mark.png"
+        src="/brand/hi-fi-emblem.png"
         alt="Computer Care Source Emblem"
         className={`${emblemSizes[size]} object-contain flex-shrink-0`}
         loading="eager"
