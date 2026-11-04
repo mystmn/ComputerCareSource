@@ -14,7 +14,7 @@ export const PricingSection: React.FC = () => {
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1B365D] tracking-tight">
-            Transparent Pricing
+            Honest & Direct Pricing
           </h2>
         </div>
 

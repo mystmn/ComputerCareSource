@@ -36,7 +36,7 @@ export function App() {
         {/* Experience & Credentials */}
         <CredentialsSection />
 
-        {/* Transparent Pricing Section */}
+        {/* Honest & Direct Pricing Section */}
         <PricingSection />
 
         {/* How It Works (3 Simple Steps) */}
