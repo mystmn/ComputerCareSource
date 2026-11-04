@@ -6,7 +6,10 @@ const STORAGE_KEY = 'ccs_local_leads';
  * Dispatches a booking request to FormSubmit.co (https://formsubmit.co)
  * and guarantees lead safety by persisting to local storage backup.
  */
-export async function submitBookingRequest(data: BookingFormData): Promise<BookingSubmissionResult> {
+export async function submitBookingRequest(
+  data: BookingFormData,
+  altchaPayload?: string
+): Promise<BookingSubmissionResult> {
   const referenceId = 'CCS-' + Math.floor(100000 + Math.random() * 900000);
   const submittedAt = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
@@ -50,6 +53,8 @@ export async function submitBookingRequest(data: BookingFormData): Promise<Booki
         'Service Street / Zip': data.address,
         'Service Requested': data.serviceType,
         'Issue Description': data.issueDescription || 'Not specified',
+        'Human Verification (ALTCHA)': altchaPayload ? 'Verified' : 'Unverified',
+        altcha: altchaPayload || '',
         'Reference ID': referenceId,
         'Submission Time': `${new Date().toLocaleDateString()} at ${submittedAt}`,
       }),

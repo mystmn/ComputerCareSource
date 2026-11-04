@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { BookingFormData, BookingSubmissionResult } from '../types';
 import { submitBookingRequest } from '../services/bookingService';
+import { AltchaWidget } from '../../../shared/components/AltchaWidget';
 import { CheckCircle2, RefreshCw, Send, Lock } from 'lucide-react';
 
 interface BookingSectionProps {
@@ -24,6 +25,9 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionResult, setSubmissionResult] = useState<BookingSubmissionResult | null>(null);
+  const [altchaPayload, setAltchaPayload] = useState<string>('');
+  const [altchaVerified, setAltchaVerified] = useState(false);
+  const [verificationError, setVerificationError] = useState(false);
 
   const [prevServiceId, setPrevServiceId] = useState(selectedServiceId);
   if (selectedServiceId !== prevServiceId) {
@@ -40,9 +44,15 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!altchaVerified) {
+      setVerificationError(true);
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      const result = await submitBookingRequest(formData);
+      const result = await submitBookingRequest(formData, altchaPayload);
       setSubmissionResult(result);
     } finally {
       setIsSubmitting(false);
@@ -159,6 +169,27 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                     placeholder="How can we help? (e.g. slow PC, virus pop-ups, Wi-Fi dead zones, data recovery...)"
                     className="w-full px-4 py-3 rounded-xl bg-[#F7FAFC] border border-slate-200 text-sm text-[#1B365D] shadow-inner focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C59B27] transition-all"
                   />
+                </div>
+
+                {/* Human Validation: ALTCHA Proof-of-Work */}
+                <div className="pt-1">
+                  <div className="flex flex-col gap-2">
+                    <span className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider">
+                      Human Verification
+                    </span>
+                    <AltchaWidget
+                      onVerify={(payload) => {
+                        setAltchaVerified(true);
+                        setAltchaPayload(payload);
+                        setVerificationError(false);
+                      }}
+                    />
+                    {verificationError && !altchaVerified && (
+                      <p className="text-xs text-red-500 font-medium animate-in fade-in">
+                        Please complete the verification checkbox above before requesting a visit.
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
