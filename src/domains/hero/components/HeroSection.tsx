@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Phone } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
   const trustPillars = [
@@ -44,16 +44,16 @@ export const HeroSection: React.FC = () => {
             </p>
           </div>
 
-          {/* Group 2: Rate Reassurance */}
-          <div className="inline-flex items-center px-6 py-3 rounded-2xl bg-white/[0.08] backdrop-blur-md border border-white/15 shadow-xl text-xs sm:text-sm text-gray-200">
-            <span className="text-[#E6CE78] font-bold uppercase tracking-wider text-xs">
-              Transparent Rates
-            </span>
-            <span className="text-white/30 mx-3">&bull;</span>
-            <span className="font-bold text-white">$140 First Hour</span>
-            <span className="text-white/30 mx-3">|</span>
-            <span className="text-gray-300">$119 Additional Hours</span>
-          </div>
+          {/* Group 2: Rate / Quote Reassurance */}
+          <a
+            href="tel:6143822874"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-md border border-white/15 shadow-xl text-xs sm:text-sm text-gray-200 transition-colors"
+          >
+            <Phone className="w-4 h-4 text-[#E6CE78]" />
+            <span className="font-bold text-white">Call for an over the phone quote</span>
+            <span className="text-white/40 mx-1">&bull;</span>
+            <span className="text-[#E6CE78] font-semibold">(614) 382-2874</span>
+          </a>
         </div>
       </section>
 
