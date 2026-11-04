@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrandLogo } from '../../brand/components/BrandLogo';
-import { Phone, Mail } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -12,24 +12,28 @@ export const Footer: React.FC = () => {
 
         <div className="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm">
           <a
-            href="tel:18005552273"
+            href="tel:16143822874"
             className="flex items-center gap-2 text-white hover:text-[#C59B27] font-semibold transition-colors"
           >
             <Phone className="w-4 h-4 text-[#C59B27]" />
-            <span>(800) 555-CARE</span>
-          </a>
-          <a
-            href="mailto:dispatch@computercaresource.com"
-            className="flex items-center gap-2 hover:text-white transition-colors"
-          >
-            <Mail className="w-4 h-4 text-[#2C7A7B]" />
-            <span>dispatch@computercaresource.com</span>
+            <span>(614) 382-2874</span>
           </a>
         </div>
 
-        <p className="text-xs text-gray-400">
-          &copy; {CURRENT_YEAR} Computer Care Source. All rights reserved.
-        </p>
+        <div className="flex flex-col sm:items-end items-center text-xs text-gray-400 gap-1.5 text-center sm:text-right">
+          <p>&copy; {CURRENT_YEAR} Computer Care Source. All rights reserved.</p>
+          <p>
+            Created By{' '}
+            <a
+              href="https://theevergreenstrategy.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-[#C59B27] underline decoration-gray-600 hover:decoration-[#C59B27] transition-colors font-medium"
+            >
+              Evergreen Strategy, LLC.
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );

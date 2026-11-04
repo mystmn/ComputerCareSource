@@ -48,11 +48,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onBookClick }) => {
 
         <div className="hidden sm:flex items-center space-x-4">
           <a
-            href="tel:18005552273"
+            href="tel:16143822874"
             className="flex items-center gap-1.5 text-sm font-semibold text-gray-200 hover:text-white transition-colors"
           >
             <Phone className="w-4 h-4 text-[#C59B27]" />
-            <span>(800) 555-CARE</span>
+            <span>(614) 382-2874</span>
           </a>
 
           <button

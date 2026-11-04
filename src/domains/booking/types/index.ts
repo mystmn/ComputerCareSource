@@ -1,7 +1,7 @@
 export interface BookingFormData {
   fullName: string;
   phone: string;
-  email: string;
+  email?: string;
   address: string;
   zipCode: string;
   serviceType: string;

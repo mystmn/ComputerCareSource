@@ -13,7 +13,6 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
   const [formData, setFormData] = useState<BookingFormData>({
     fullName: '',
     phone: '',
-    email: '',
     address: '',
     zipCode: '',
     serviceType: selectedServiceId,
@@ -119,7 +118,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
                   <div>
                     <label className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5">
-                      Phone *
+                      Phone Number *
                     </label>
                     <input
                       type="tel"
@@ -127,40 +126,25 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="(555) 234-5678"
+                      placeholder="(614) 382-2874"
                       className="w-full px-4 py-3 rounded-xl bg-[#F7FAFC] border border-slate-200 text-sm text-[#1B365D] shadow-inner focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C59B27] transition-all"
                     />
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="you@example.com"
-                      className="w-full px-4 py-3 rounded-xl bg-[#F7FAFC] border border-slate-200 text-sm text-[#1B365D] shadow-inner focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C59B27] transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5">
-                      Address or Zip Code *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      name="address"
-                      value={formData.address}
-                      onChange={handleChange}
-                      placeholder="Street Address or Zip Code"
-                      className="w-full px-4 py-3 rounded-xl bg-[#F7FAFC] border border-slate-200 text-sm text-[#1B365D] shadow-inner focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C59B27] transition-all"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#1B365D] uppercase tracking-wider mb-1.5">
+                    Address or Zip Code *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    placeholder="Street Address or Zip Code"
+                    className="w-full px-4 py-3 rounded-xl bg-[#F7FAFC] border border-slate-200 text-sm text-[#1B365D] shadow-inner focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C59B27] transition-all"
+                  />
                 </div>
 
                 <div>
