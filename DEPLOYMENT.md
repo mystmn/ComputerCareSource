@@ -79,7 +79,7 @@ Configures Single-Page Application (SPA) routing, cache headers, and build folde
 
 Two workflow files in `.github/workflows/` manage CI/CD:
 
-1. `firebase-hosting-merge.yml`: Triggers on push to `main` and deploys to the Live production channel.
+1. `firebase-hosting-merge.yml`: Triggers on push or merge to `main` or `develop` and deploys to the Live production channel.
 2. `firebase-hosting-pull-request.yml`: Triggers on pull requests and deploys to a temporary preview channel.
 
 Each workflow passes the Web3Forms key during build:
@@ -170,3 +170,4 @@ npm run build
 npx firebase deploy --only hosting
 ```
 Using `npx` avoids global PATH or version mismatch issues on Windows.
+
