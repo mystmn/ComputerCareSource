@@ -30,5 +30,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_COMPUTER_CARE_SOURCE }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_COMPUTER_CARE_SOURCE || secrets.FIREBASE_SERVICE_ACCOUNT }}'
           projectId: computer-care-source
+
