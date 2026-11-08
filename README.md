@@ -62,3 +62,5 @@ The application deploys to Firebase Hosting via GitHub Actions.
 npm run build
 npx firebase deploy --only hosting
 ```
+
+For complete setup instructions and troubleshooting, see [DEPLOYMENT.md](DEPLOYMENT.md).
